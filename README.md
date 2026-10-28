@@ -48,6 +48,10 @@ ros2 run wheel_odometry wheel_odometry
 ros2 topic echo /wheel/odometry --field pose.pose
 ros2 topic echo /wheel/odometry --field twist.twist
 ```
+Readable one-line-per-update monitor (handy for demos and recordings):
+```
+ros2 run wheel_odometry odom_monitor
+```
 Unit tests (straight, in-place turn, full rotation, arc, smoothness, wrap-around, baseline, bad dt):
 ```
 cd ~/odom_ws/src/wheel_odometry && python3 -m pytest test -v
@@ -70,14 +74,14 @@ cd ~/odom_ws/src/wheel_odometry && python3 -m pytest test -v
   which should use the velocities.
 
 ## Verification
-- `python3 -m pytest test -v` -> 11 passed (straight driving, in-place turn, full rotation, arc,
+- `python3 -m pytest test -v` -> 12 passed (straight driving, in-place turn, full rotation, arc,
   smoothness, angle wrap-around, baseline, bad `dt`, quaternion, smoothing, parameters).
 - Demo with `fake_joint_states`: x grows during the straight phase with y and yaw about 0; during
   the turn x and y stay constant while yaw changes.
 
 ## Proof
 Saved evidence is in the [`proof/`](proof/) folder:
-- `test-output.txt`: output of `python3 -m pytest test -v` (11 passed)
+- `test-output.txt`: output of `python3 -m pytest test -v` (12 passed)
 - `odometry-demo.mp4`: screen recording of `/wheel/odometry` during the demo (straight driving, then an in-place turn)
 - `*.png`: screenshots of the test run and of `ros2 topic echo /wheel/odometry --field pose.pose`
 

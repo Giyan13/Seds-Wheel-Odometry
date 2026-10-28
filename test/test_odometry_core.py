@@ -154,3 +154,16 @@ def test_invalid_parameters():
         WheelOdometry(R, 0.0)
     with pytest.raises(ValueError):
         WheelOdometry(R, L, 0.0)
+
+
+def test_monitor_helpers():
+    from wheel_odometry.odom_monitor import classify_motion, format_line, yaw_from_quaternion
+    for yaw in (-3.0, -1.0, 0.0, 0.7, 3.0):
+        _, _, z, w = yaw_to_quaternion(yaw)
+        assert yaw_from_quaternion(z, w) == pytest.approx(yaw, abs=1e-12)
+    assert classify_motion(0.3, 0.0).strip() == 'STRAIGHT'
+    assert classify_motion(0.0, 0.5).strip() == 'TURNING'
+    assert classify_motion(0.3, 0.5).strip() == 'ARC'
+    assert classify_motion(0.0, 0.0).strip() == 'STOPPED'
+    line = format_line(1.5, 0.0, 0.0, 0.3, 0.0)
+    assert 'STRAIGHT' in line and '1.500' in line and 'heading=    0.0' in line

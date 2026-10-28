@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'wheel_odometry = wheel_odometry.odometry_node:main',
             'fake_joint_states = wheel_odometry.fake_joint_states:main',
+            'odom_monitor = wheel_odometry.odom_monitor:main',
         ],
     },
 )
