@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>wheel_odometry</name>
+  <version>0.1.0</version>
+  <description>Wheel odometry node (/joint_states to /wheel/odometry) for the SEDS Pakistan rover</description>
+  <maintainer email="giyanchand13042007@gmail.com">Giyan Chand</maintainer>
+  <license>Apache-2.0</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

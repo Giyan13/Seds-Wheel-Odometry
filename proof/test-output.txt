@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-6.2.5, py-1.10.0, pluggy-0.13.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/giyan/odom_ws/src/wheel_odometry
+plugins: ament-lint-0.12.15, launch-testing-1.0.15, ament-copyright-0.12.15, ament-pep257-0.12.15, ament-flake8-0.12.15, launch-testing-ros-0.19.14, ament-xmllint-0.12.15, cov-3.0.0, colcon-core-0.21.3
+collecting ... collected 11 items
+
+test/test_odometry_core.py::test_first_message_only_sets_baseline PASSED [  9%]
+test/test_odometry_core.py::test_straight_driving PASSED                 [ 18%]
+test/test_odometry_core.py::test_in_place_turn PASSED                    [ 27%]
+test/test_odometry_core.py::test_full_rotation_returns_to_start PASSED   [ 36%]
+test/test_odometry_core.py::test_quarter_circle_arc PASSED               [ 45%]
+test/test_odometry_core.py::test_smooth_no_jumps PASSED                  [ 54%]
+test/test_odometry_core.py::test_heading_stays_normalized PASSED         [ 63%]
+test/test_odometry_core.py::test_non_positive_dt_is_ignored_and_not_consumed PASSED [ 72%]
+test/test_odometry_core.py::test_quaternion PASSED                       [ 81%]
+test/test_odometry_core.py::test_velocity_smoothing_reduces_jitter_but_not_pose PASSED [ 90%]
+test/test_odometry_core.py::test_invalid_parameters PASSED               [100%]
+
+============================== 11 passed in 0.09s ==============================
