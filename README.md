@@ -74,3 +74,32 @@ cd ~/odom_ws/src/wheel_odometry && python3 -m pytest test -v
   smoothness, angle wrap-around, baseline, bad `dt`, quaternion, smoothing, parameters).
 - Demo with `fake_joint_states`: x grows during the straight phase with y and yaw about 0; during
   the turn x and y stay constant while yaw changes.
+
+## Proof
+Saved evidence is in the [`proof/`](proof/) folder:
+- `test-output.txt`: output of `python3 -m pytest test -v` (11 passed)
+- `odometry-demo.mp4`: screen recording of `/wheel/odometry` during the demo (straight driving, then an in-place turn)
+- `*.png`: screenshots of the test run and of `ros2 topic echo /wheel/odometry --field pose.pose`
+
+What the demo shows: during straight driving the heading stays constant and position advances in
+even steps (about 0.006 m per message at 50 Hz, i.e. 0.3 m/s); during the in-place turn x and y stay
+fixed while the heading changes smoothly. No jumps in either phase.
+
+## Interface notes for other pods
+- Heading convention: yaw is counter-clockwise from +x, in radians, range [-pi, pi]. For a dashboard
+  that wants degrees in 0 to 360: `heading_deg = degrees(yaw) % 360`.
+- Position is in a local frame in metres, starting at (0, 0) at the first message.
+- This package publishes a ROS 2 topic. It does not talk WebSocket, so a ground-station dashboard
+  needs a bridge (for example rosbridge) to receive it.
+
+## Limitations
+- Tested with the included fake `/joint_states` publisher and unit tests only. It has **not** been run
+  against the Gazebo / Leo Rover simulator or a recorded bag.
+- Defaults are the Lesson 5 values. The real rover's wheel radius, wheel separation and joint names
+  are not confirmed. They are launch parameters.
+- Uses one left and one right wheel joint. A 4-wheel rover would need the front and rear wheel on each
+  side combined (not implemented).
+- Wheel odometry drifts without bound (slip, wrong dimensions, quantisation). It is meant to be fused,
+  using its velocities, by an EKF.
+- 2D only. No wheel-slip handling.
+- Python version of a lesson written in C++.
